@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A student project introducing Ahantaman Senior High School in Ghana.">
+    <title>Ahantaman Senior High School</title>
+
+    <!-- CSS styles the school logo, navigation bar, content, and page views. -->
+    <style>
+        :root {
+            --school-purple: #563b55;
+            --deep-purple: #39283a;
+            --school-mauve: #a97d9c;
+            --light-mauve: #f5edf3;
+            --ink: #29262a;
+            --paper: #fffdfb;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+        }
+
+        /* The navbar stays at the top and includes the school's real crest. */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.7rem max(1rem, calc((100% - 1120px) / 2));
+            background: var(--deep-purple);
+            box-shadow: 0 3px 12px rgb(0 0 0 / 18%);
+        }
+
+        .brand {
+            display: flex;
+            flex: 0 0 auto;
+            align-items: center;
+            gap: 0.75rem;
+            color: white;
+            font-weight: bold;
+            line-height: 1.25;
+            text-decoration: none;
+        }
+
+        .brand img {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: white;
+            object-fit: contain;
+        }
+
+        .brand span {
+            max-width: 190px;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 0.3rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 0.55rem 0.7rem;
+            border-radius: 6px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus,
+        .nav-links a[aria-current="page"] {
+            background: var(--school-mauve);
+            color: #1e1720;
+        }
+
+        main {
+            width: min(100% - 2rem, 1050px);
+            min-height: 70vh;
+            margin: 2rem auto;
+        }
+
+        .page {
+            animation: arrive 180ms ease-out;
+        }
+
+        .page[hidden] {
+            display: none;
+        }
+
+        @keyframes arrive {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 1.5rem;
+            overflow: hidden;
+            border-radius: 14px;
+            background: var(--light-mauve);
+        }
+
+        .welcome-copy {
+            padding: clamp(1.3rem, 4vw, 3rem);
+        }
+
+        .welcome h1 {
+            margin: 0 0 0.75rem;
+            color: var(--school-purple);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            line-height: 1.15;
+        }
+
+        .welcome img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            min-height: 280px;
+            object-fit: cover;
+        }
+
+        .card {
+            margin-top: 1.5rem;
+            padding: clamp(1.1rem, 3vw, 2rem);
+            border: 1px solid #e6dce5;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 14px rgb(57 40 58 / 7%);
+        }
+
+        h2,
+        h3 {
+            color: var(--school-purple);
+            font-family: Georgia, "Times New Roman", serif;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.85rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+            gap: 1.25rem;
+            margin-top: 1.25rem;
+        }
+
+        figure {
+            margin: 0;
+        }
+
+        .photo-grid img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            border-radius: 9px;
+            background: var(--light-mauve);
+            object-fit: cover;
+        }
+
+        figcaption {
+            padding-top: 0.55rem;
+            color: #5b535a;
+            font-size: 0.92rem;
+        }
+
+        .source-note {
+            font-size: 0.85rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+            gap: 1rem;
+            margin-top: 1.25rem;
+        }
+
+        .info-tile {
+            padding: 1rem;
+            border-left: 4px solid var(--school-mauve);
+            border-radius: 6px;
+            background: var(--light-mauve);
+        }
+
+        .info-tile h3 {
+            margin: 0 0 0.35rem;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 0.7rem;
+            border: 1px solid #958895;
+            text-align: left;
+        }
+
+        th {
+            background: var(--school-purple);
+            color: white;
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--light-mauve);
+        }
+
+        a {
+            color: #604064;
+        }
+
+        .navbar a {
+            color: white;
+        }
+
+        footer {
+            padding: 2rem max(1rem, calc((100% - 1050px) / 2)) 1rem;
+            background: var(--deep-purple);
+            color: white;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        footer h2 {
+            margin: 0 0 0.5rem;
+            color: white;
+            font-size: 1.15rem;
+        }
+
+        footer p {
+            margin: 0.35rem 0;
+        }
+
+        .footer-links {
+            display: grid;
+            gap: 0.35rem;
+        }
+
+        .footer-links a,
+        .footer-bottom a {
+            color: #f3d9ef;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgb(255 255 255 / 25%);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 760px) {
+            .navbar {
+                position: static;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-links {
+                justify-content: flex-start;
+            }
+
+            .welcome {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome img {
+                max-height: 320px;
+                min-height: 220px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Click the crest or a menu link to open a different page view. -->
+    <nav class="navbar" aria-label="Main navigation">
+        <a class="brand" href="#home">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Ahantaman_Girls_Senior_High_School.png"
+                 alt="Ahantaman Girls Senior High School crest">
+            <span>Ahantaman Senior High School</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#home" data-page-link="home">Home</a></li>
+            <li><a href="#about" data-page-link="about">About</a></li>
+            <li><a href="#academics" data-page-link="academics">Academics</a></li>
+            <li><a href="#activities" data-page-link="activities">Activities</a></li>
+            <li><a href="#gallery" data-page-link="gallery">Gallery</a></li>
+            <li><a href="#contact" data-page-link="contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Each section is a page. JavaScript shows the selected page view. -->
+        <section class="page" id="page-home" data-title="Home">
+            <div class="welcome">
+                <div class="welcome-copy">
+                    <h1>Ahantaman Senior High School</h1>
+                    <p>
+                        Welcome to Ahantaman. Discover the school's history,
+                        learning, student activities, and community.
+                    </p>
+                    <p>
+                        <a href="#about">Learn about the school</a>
+                    </p>
+                </div>
+                <img src="https://myjoyonline.com/wp-content/uploads/2023/08/Education-Library-Complex-2-1024x768.jpg"
+                     alt="Students at Ahantaman Girls Senior High School, shown in a MyJoyOnline report">
+            </div>
+            <div class="card">
+                <h2>Welcome Message</h2>
+                <p>
+                    We celebrate the learners, teachers, and past students who
+                    make Ahantaman part of Ghana's educational community.
+                    Explore the pages using the navigation bar above.
+                </p>
+                <div class="info-grid">
+                    <div class="info-tile">
+                        <h3>Location</h3>
+                        <p>Ketan, Sekondi, Western Region, Ghana</p>
+                    </div>
+                    <div class="info-tile">
+                        <h3>School community</h3>
+                        <p>A Ghanaian senior high school with a proud history.</p>
+                    </div>
+                    <div class="info-tile">
+                        <h3>Explore</h3>
+                        <p>Learn about the school's background, studies, and student projects.</p>
+                    </div>
+                </div>
+                <p class="source-note">
+                    The school photo is from a
+                    <a href="https://www.myjoyonline.com/students-of-ahantaman-girls-shs-appeal-for-library-complex/"
+                       target="_blank" rel="noopener noreferrer">MyJoyOnline report about the school's library</a>.
+                </p>
+            </div>
+        </section>
+
+        <section class="page" id="page-about" data-title="About the School" hidden>
+            <div class="card">
+                <h2>About Our School</h2>
+                <p>
+                    Ahantaman Senior High School, now known as Ahantaman Girls'
+                    Senior High School, is located at Ketan in Sekondi, in
+                    Ghana's Western Region. The school has served students
+                    under several names, including Royal Commercial College
+                    and Ahantaman Secondary School.
+                </p>
+                <p>
+                    The school became a girls' senior high school in 2010.
+                    This student project uses the name Ahantaman Senior High
+                    School as requested.
+                </p>
+                <h3>A brief history</h3>
+                <ul>
+                    <li>Founded in 1948 as Takoradi Commercial Academy.</li>
+                    <li>Later known as Royal Commercial College and Royal Commercial Secondary School.</li>
+                    <li>The name Ahantaman Secondary School was adopted in 1980.</li>
+                    <li>The school became a girls' senior high school in 2010.</li>
+                </ul>
+                <h3>Our community</h3>
+                <p>
+                    Students, teachers, families, and alumni all contribute
+                    to school life and learning.
+                </p>
+                <p>
+                    A 2023 anniversary report also highlighted students'
+                    request for a modern library facility, showing the
+                    importance of learning resources to the school community.
+                </p>
+                <p>
+                    <a href="https://en.wikipedia.org/wiki/Ahantaman_Girls_Senior_High_School"
+                       target="_blank" rel="noopener noreferrer">Read the school background</a>
+                    &nbsp;|&nbsp;
+                    <a href="https://www.myjoyonline.com/students-of-ahantaman-girls-shs-appeal-for-library-complex/"
+                       target="_blank" rel="noopener noreferrer">Read the library report</a>
+                </p>
+            </div>
+        </section>
+
+        <section class="page" id="page-academics" data-title="Academics" hidden>
+            <div class="card">
+                <h2>Academics</h2>
+                <p>
+                    The table below is a sample weekly timetable for this
+                    project. Confirm the subjects, teachers, and times with
+                    the school before using it as a real timetable.
+                </p>
+                <h3>Learning for the future</h3>
+                <p>
+                    A balanced education includes communication, numeracy,
+                    scientific thinking, digital skills, and an understanding
+                    of society. The example timetable below demonstrates how
+                    a weekly learning plan can be arranged.
+                </p>
+                <p>
+                    For accurate programme options, admission details, and
+                    current timetables, please refer to school or Ghana
+                    Education Service information.
+                </p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Subject</th>
+                                <th scope="col">Teacher</th>
+                                <th scope="col">Day</th>
+                                <th scope="col">Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>English</td><td>Mr. Mensah</td><td>Monday</td><td>8:00 AM</td></tr>
+                            <tr><td>Mathematics</td><td>Mrs. Owusu</td><td>Tuesday</td><td>9:00 AM</td></tr>
+                            <tr><td>Integrated Science</td><td>Mr. Arthur</td><td>Wednesday</td><td>10:00 AM</td></tr>
+                            <tr><td>ICT</td><td>Ms. Adjei</td><td>Thursday</td><td>11:00 AM</td></tr>
+                            <tr><td>Social Studies</td><td>Mr. Boateng</td><td>Friday</td><td>8:00 AM</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3>Helpful study habits</h3>
+                <ul>
+                    <li>Keep a regular study plan and review class notes.</li>
+                    <li>Ask questions and seek help when a topic is unclear.</li>
+                    <li>Use the library and trusted online learning resources.</li>
+                    <li>Work with classmates respectfully on group assignments.</li>
+                </ul>
+                <p>
+                    Explore
+                    <a href="https://www.khanacademy.org/" target="_blank" rel="noopener noreferrer">Khan Academy</a>
+                    and
+                    <a href="https://ges.gov.gh/" target="_blank" rel="noopener noreferrer">Ghana Education Service</a>
+                    for learning support and education information.
+                </p>
+            </div>
+        </section>
+
+        <section class="page" id="page-activities" data-title="Activities" hidden>
+            <div class="card">
+                <h2>School Activities</h2>
+                <h3>Learning beyond the classroom</h3>
+                <p>
+                    School activities can help learners practise leadership,
+                    creativity, teamwork, and service to the community.
+                </p>
+                <p>
+                    Ahantaman students have taken part in science and
+                    environmental projects. For example, the school partnered
+                    with a science organisation on a student rescue-robot
+                    project.
+                </p>
+                <p>
+                    The project aimed to help students explore science,
+                    technology, engineering, and mathematics through practical
+                    problem-solving. In 2024, the school also worked with the
+                    Ghana Ports and Harbours Authority on a tree-planting
+                    activity for World Environment Day.
+                </p>
+                <ul>
+                    <li><strong>Science and technology:</strong> hands-on projects that build creativity and problem-solving.</li>
+                    <li><strong>Environmental action:</strong> caring for the environment through community activities.</li>
+                    <li><strong>Student leadership:</strong> practising responsibility, collaboration, and service.</li>
+                    <li><strong>Culture and recreation:</strong> opportunities to share interests and build school spirit.</li>
+                </ul>
+                <p>
+                    <a href="https://www.citinewsroom.com/2022/02/ahantaman-shs-signs-pact-with-sssri-to-design-rescue-robot/"
+                       target="_blank" rel="noopener noreferrer">Read about the student robot project</a>
+                    &nbsp;|&nbsp;
+                    <a href="https://en.wikipedia.org/wiki/Ahantaman_Girls_Senior_High_School"
+                       target="_blank" rel="noopener noreferrer">See the school's reported projects</a>
+                </p>
+            </div>
+        </section>
+
+        <section class="page" id="page-gallery" data-title="Gallery" hidden>
+            <div class="card">
+                <h2>School Gallery</h2>
+                <p>
+                    These web photos accompany a news report about Ahantaman
+                    Girls' Senior High School and its library.
+                </p>
+                <div class="photo-grid">
+                    <figure>
+                        <img src="https://myjoyonline.com/wp-content/uploads/2023/08/Education-Library-Complex-2-1024x768.jpg"
+                             alt="Photo from a report about Ahantaman Girls Senior High School's library">
+                        <figcaption>School community and library report.</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://myjoyonline.com/wp-content/uploads/2023/08/Education-Library-Complex-1024x768.jpg"
+                             alt="Another photo published in a report about the Ahantaman school library">
+                        <figcaption>Image published with the school's library report.</figcaption>
+                    </figure>
+                </div>
+                <p class="source-note">
+                    Photos:
+                    <a href="https://www.myjoyonline.com/students-of-ahantaman-girls-shs-appeal-for-library-complex/"
+                       target="_blank" rel="noopener noreferrer">MyJoyOnline, “Students of Ahantaman Girls' SHS appeal for library complex”</a>.
+                    The images are loaded from the publisher's website.
+                </p>
+            </div>
+        </section>
+
+        <section class="page" id="page-contact" data-title="Contact" hidden>
+            <div class="card">
+                <h2>Contact Information</h2>
+                <p>
+                    Ahantaman Girls' Senior High School is in Ketan, Sekondi,
+                    Western Region, Ghana.
+                </p>
+                <h3>Contact the Headteacher</h3>
+                <p>
+                    For enquiries, send a WhatsApp message to the headteacher
+                    using the contact number provided for this project:
+                    <a href="https://wa.me/233538843695"
+                       target="_blank" rel="noopener noreferrer"
+                       aria-label="Message the headteacher on WhatsApp at 0538843695">053 884 3695 — WhatsApp Headteacher</a>.
+                </p>
+                <p class="source-note">
+                    WhatsApp opens a chat with the number in international
+                    format. Please confirm that this number is correct and
+                    approved for public use before publishing the page.
+                </p>
+                <p>
+                    <a href="https://www.google.com/maps/search/?api=1&amp;query=Ahantaman+Girls+Senior+High+School+Ketan+Ghana"
+                       target="_blank" rel="noopener noreferrer">Find the school on a map</a>
+                </p>
+                <p>
+                    Please check the school's official channels for current
+                    telephone and email details.
+                </p>
+                <h3>Useful education links</h3>
+                <ul>
+                    <li><a href="https://ges.gov.gh/" target="_blank" rel="noopener noreferrer">Ghana Education Service</a></li>
+                    <li><a href="https://www.khanacademy.org/" target="_blank" rel="noopener noreferrer">Khan Academy</a></li>
+                    <li><a href="https://www.schoolsingh.com/schools/shs/ahantaman-girls-senior-high"
+                           target="_blank" rel="noopener noreferrer">Ahantaman school profile on SchoolsInGh</a></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h2>Ahantaman Senior High School</h2>
+                <p>
+                    A student information website celebrating the school's
+                    history, learning community, and student projects.
+                </p>
+                <p>Ketan, Sekondi, Western Region, Ghana</p>
+            </div>
+            <div>
+                <h2>Quick links</h2>
+                <div class="footer-links">
+                    <a href="#about">About the school</a>
+                    <a href="#academics">Academics</a>
+                    <a href="#activities">Student activities</a>
+                    <a href="#contact">Contact information</a>
+                </div>
+            </div>
+            <div>
+                <h2>Project information</h2>
+                <p><strong>Project work done by Herbertina Aba Thompson</strong></p>
+                <p>School crest: Wikimedia Commons, CC0.</p>
+                <p>School photos: MyJoyOnline.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 Herbertina Aba Thompson. Student project.</span>
+            <a href="#home">Back to top</a>
+        </div>
+    </footer>
+
+    <noscript>
+        <p>This website needs JavaScript enabled to switch between its page views.</p>
+    </noscript>
+
+    <!-- This small script changes the visible page when a navigation link is selected. -->
+    <script>
+        const pages = document.querySelectorAll(".page");
+        const pageLinks = document.querySelectorAll("[data-page-link]");
+
+        function showPage() {
+            const requestedPage = window.location.hash.slice(1) || "home";
+            const selectedPage = document.getElementById("page-" + requestedPage);
+            const pageToShow = selectedPage ? requestedPage : "home";
+
+            pages.forEach(function (page) {
+                page.hidden = page.id !== "page-" + pageToShow;
+            });
+
+            pageLinks.forEach(function (link) {
+                if (link.dataset.pageLink === pageToShow) {
+                    link.setAttribute("aria-current", "page");
+                } else {
+                    link.removeAttribute("aria-current");
+                }
+            });
+
+            const activePage = document.getElementById("page-" + pageToShow);
+            document.title = activePage.dataset.title + " | Ahantaman Senior High School";
+            window.scrollTo(0, 0);
+        }
+
+        /* The browser's back and forward buttons also switch between pages. */
+        window.addEventListener("hashchange", showPage);
+        showPage();
+    </script>
+</body>
+</html>
